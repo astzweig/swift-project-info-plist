@@ -16,7 +16,7 @@ struct CreateProjectPlist: AsyncParsableCommand {
 	)
 	var projectDirectory: URL
 
-	@Option(help: "The name of the target if it shall be included.")
+	@Option(help: "The name of the target to be included in the bundle Id.")
 	var target = "TestDrive"
 
 	@Option(
