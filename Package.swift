@@ -5,6 +5,7 @@ let package = Package(
     name: "swift-project-info-plist",
 	platforms: [.macOS(.v13), .iOS(.v16), .tvOS(.v16), .watchOS(.v9)],
     products: [
+		.library(name: "ProjectPlist", targets: ["ProjectPlist"]),
         .executable(
             name: "create-project-plist",
             targets: ["CreateProjectPlist"]),
@@ -14,12 +15,13 @@ let package = Package(
 		.package(url: "https://github.com/apple/swift-package-manager", revision: "swift-5.10.1-RELEASE"),
 	],
     targets: [
-		.executableTarget(
-			name: "CreateProjectPlist",
+		.target(
+			name: "ProjectPlist",
 			dependencies: [
 				.product(name: "ArgumentParser", package: "swift-argument-parser"),
 				.product(name: "SwiftPM-auto", package: "swift-package-manager")
 			]
-		)
+		),
+		.executableTarget(name: "CreateProjectPlist", dependencies: ["ProjectPlist"])
     ]
 )

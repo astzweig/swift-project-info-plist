@@ -1,9 +1,9 @@
 import Foundation
 import ArgumentParser
+import ProjectPlist
 
 @main
 struct CreateProjectPlist: AsyncParsableCommand {
-	typealias ProjectInformation = (bundleId: String, version: String, smallVersion: String)
 	static var configuration = CommandConfiguration(abstract: "Generate a Info.plist using project and git informations.")
 
 	enum Error: Swift.Error {
@@ -30,19 +30,7 @@ struct CreateProjectPlist: AsyncParsableCommand {
 
 	mutating func run() async {
 		self.updateProjectDirectory()
-		await self.createOrUpdateInfoPlist()
-	}
-
-	func createOrUpdateInfoPlist() async {
-		let informations = await self.getProjectInformations()
-
-		let plist = InfoPlist.at(directory: self.outputDirectory)
-		plist.set(id: informations.bundleId)
-		plist.set(name: self.target)
-		plist.set(version: informations.version)
-		plist.set(smallVersion: informations.smallVersion)
-
-		try? plist.save()
+		try? await ProjectPlist.createOrUpdateInfoPlist(for: self.projectDirectory, at: self.outputDirectory, for: self.target)
 	}
 
 	mutating func updateProjectDirectory() {
@@ -58,17 +46,6 @@ struct CreateProjectPlist: AsyncParsableCommand {
 			projectDirectory.deleteLastPathComponent()
 		}
 		self.projectDirectory = projectDirectory
-	}
-
-	func getProjectInformations() async -> ProjectInformation {
-		let projectDirectory = self.projectDirectory
-		let target = self.target
-
-		async let bundleId = PackageInfo.getProjectBundleId(for: projectDirectory, target: target)
-		async let version = Git.getEnhancedVersion()
-		async let smallVersion = Git.getTotalCommitCount()
-
-		return await (bundleId, version, smallVersion)
 	}
 
 	static func argToDirectoryURL(_ path: String) -> URL {
