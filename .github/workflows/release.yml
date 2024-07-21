@@ -1,0 +1,28 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+
+jobs:
+  release:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build executable for release
+        run: swift build -c release --arch arm64 --arch x86_64 --product create-project-plist
+      - name: Compress archive
+        run: tar -czf create-project-plist.v${{ github.ref_name }}.tar.gz -C .build/apple/Products/Release create-project-plist
+      - name: Get latest release info
+        id: query-release-info
+        uses: release-flow/keep-a-changelog-action@v2
+        with:
+          command: query
+          version: latest
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body: ${{ steps.query-release-info.outputs.release-notes }}
+          files: create-project-plist.v${{ github.ref_name }}.tar.gz
+          token: ${{ secrets.GITHUB_TOKEN }}
