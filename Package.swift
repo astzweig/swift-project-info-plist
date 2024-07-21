@@ -8,7 +8,15 @@ let package = Package(
             name: "create-project-plist",
             targets: ["CreateProjectPlist"]),
     ],
+	dependencies: [
+		.package(url: "https://github.com/apple/swift-argument-parser", from: "1.3.0"),
+	],
     targets: [
-		.executableTarget(name: "CreateProjectPlist")
+		.executableTarget(
+			name: "CreateProjectPlist",
+			dependencies: [
+				.product(name: "ArgumentParser", package: "swift-argument-parser")
+			]
+		)
     ]
 )
