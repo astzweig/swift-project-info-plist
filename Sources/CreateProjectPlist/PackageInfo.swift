@@ -31,4 +31,13 @@ struct PackageInfo {
 		let manifest = try await workspace.loadRootManifest(at: packageDir, observabilityScope: observability.topScope)
 		return Self.init(manifest: manifest)
 	}
+
+	static func getProjectBundleId(for projectDirectory: URL, target: String) async -> String {
+		guard let packageInfo = try? await PackageInfo.fromSwiftPackage(at: projectDirectory) else {
+			fatalError("Could not evaluate package informations.")
+		}
+		let projectName = packageInfo.getProjectName()
+		let hostname = Host.current().name?.split(separator: ".").reversed().joined(separator: ".") ?? "Unknown"
+		return "\(hostname).swiftpm.\(projectName).\(target)"
+	}
 }

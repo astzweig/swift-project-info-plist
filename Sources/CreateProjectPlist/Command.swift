@@ -31,15 +31,6 @@ struct CreateProjectPlist: AsyncParsableCommand {
 		self.updateProjectDirectory()
 	}
 
-	func getProjectBundleId() async -> String {
-		guard let packageInfo = try? await PackageInfo.fromSwiftPackage(at: self.projectDirectory) else {
-			fatalError("Could not evaluate package informations.")
-		}
-		let projectName = packageInfo.getProjectName()
-		let hostname = Host.current().name?.split(separator: ".").reversed().joined(separator: ".") ?? "Unknown"
-		return "\(hostname).swiftpm.\(projectName).\(self.target)"
-	}
-
 	mutating func updateProjectDirectory() {
 		var projectDirectory = self.projectDirectory
 		while true {
