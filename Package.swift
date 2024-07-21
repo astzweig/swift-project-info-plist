@@ -10,13 +10,15 @@ let package = Package(
             targets: ["CreateProjectPlist"]),
     ],
 	dependencies: [
-		.package(url: "https://github.com/apple/swift-argument-parser", from: "1.3.0"),
+		.package(url: "https://github.com/apple/swift-argument-parser", from: "1.2.2"),
+		.package(url: "https://github.com/apple/swift-package-manager", revision: "swift-5.10.1-RELEASE"),
 	],
     targets: [
 		.executableTarget(
 			name: "CreateProjectPlist",
 			dependencies: [
-				.product(name: "ArgumentParser", package: "swift-argument-parser")
+				.product(name: "ArgumentParser", package: "swift-argument-parser"),
+				.product(name: "SwiftPM-auto", package: "swift-package-manager")
 			]
 		)
     ]
