@@ -21,8 +21,20 @@ jobs:
           command: query
           version: latest
       - name: Release
+        id: create-release
         uses: softprops/action-gh-release@v1
         with:
           body: ${{ steps.query-release-info.outputs.release-notes }}
           files: create-project-plist.v${{ github.ref_name }}.tar.gz
           token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: mislav/bump-homebrew-formula-action@v3
+        with:
+          formula-name: create-project-plist
+          homebrew-tap: astzweig/homebrew-formulae
+          download-url: ${{ fromJSON(steps.create-release.outputs.assets)[0].browser_download_url }}
+          commit-message: |
+            Bump {{formulaName}} {{version}}
+
+            Created by GitHub Workflow of ${{ github.repository }}.
+        env:
+          COMMITTER_TOKEN: ${{ secrets.HOMEBREW_FORMULAE_TOKEN }}

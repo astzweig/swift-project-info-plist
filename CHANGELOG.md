@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add GitHub workflow step to autoupdate our new [Homebrew Formula].
+
 ## [1.0.0] - 2024-07-21
 
 ### Added
@@ -17,4 +21,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 [Unreleased]: https://github.com/astzweig/swift-project-info-plist/compare/1.0.0...HEAD
+[Homebrew Formula]: https://github.com/astzweig/homebrew-formulae/blob/main/Formula/create-project-plist.rb
 [1.0.0]: https://github.com/astzweig/swift-project-info-plist/releases/tag/1.0.0...HEAD
