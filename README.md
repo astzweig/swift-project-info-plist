@@ -25,6 +25,19 @@ system, you can use `swift run` inside your local copy of this repository:
 $> swift run -- create-project-plist --project-directory <path> --output-directory <path>
 ```
 
+## Install
+You can install `create-project-plist` using Homebrew:
+
+```sh
+> brew tap astzweig/formulae
+> brew install create-project-plist
+```
+
+You can also just download the precompiled release version on the
+[release page](https://github.com/astzweig/swift-project-info-plist/releases).
+Alternativly you can just download this repository and build the executable
+yourself using `swift build`.
+
 ## Changelog
 This project keeps a [changelog](CHANGELOG.md) that adheres to
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).

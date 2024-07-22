@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add GitHub workflow step to autoupdate our new [Homebrew Formula].
+- Add section to README.md to show how to install the command.
 
 ## [1.0.0] - 2024-07-21
 
