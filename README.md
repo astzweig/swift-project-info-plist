@@ -25,6 +25,14 @@ system, you can use `swift run` inside your local copy of this repository:
 $> swift run -- create-project-plist --project-directory <path> --output-directory <path>
 ```
 
+### Adding additional Key-Value pairs
+The command supports setting additional key/value pairs. Just supply them
+at the end of the command line using the format `key:value`:
+
+```zsh
+$> create-project-plist [...] SomeKey:"Some longer value" NextKey:AnotherValue
+```
+
 ## Install
 You can install `create-project-plist` using Homebrew:
 

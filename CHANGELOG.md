@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add GitHub workflow step to autoupdate our new [Homebrew Formula].
 - Add section to README.md to show how to install the command.
+- Add possibility to add additional keys to Info.plist via the command. Just
+  supply further keys using `key:value` syntax, e.g.
+  `create-project-plist ... SomeKey:"Some longer value" NextKey:AnotherValue`.
 
 ## [1.0.0] - 2024-07-21
 

@@ -28,9 +28,20 @@ struct CreateProjectPlist: AsyncParsableCommand {
 	)
 	var outputDirectory: URL
 
+	@Argument(help: "Further key:value pairs to be added to the Info.plist.")
+	var pairs: [String] = []
+
 	mutating func run() async {
+		let pairs = self.getPairsAsDictionary()
 		self.updateProjectDirectory()
-		try? await ProjectPlist.createOrUpdateInfoPlist(for: self.projectDirectory, at: self.outputDirectory, for: self.target)
+		try? await ProjectPlist.createOrUpdateInfoPlist(for: self.projectDirectory, at: self.outputDirectory, for: self.target, with: pairs)
+	}
+
+	func getPairsAsDictionary() -> [String : String] {
+		let listPairs = self.pairs.map { $0.components(separatedBy: ":") }
+		let tuplePairs = listPairs.compactMap(Self.arrayPairToTuple)
+		let dictPairs = Dictionary(tuplePairs, uniquingKeysWith: { _,latest in latest })
+		return dictPairs
 	}
 
 	mutating func updateProjectDirectory() {
@@ -46,6 +57,11 @@ struct CreateProjectPlist: AsyncParsableCommand {
 			projectDirectory.deleteLastPathComponent()
 		}
 		self.projectDirectory = projectDirectory
+	}
+
+	static func arrayPairToTuple(_ element: [String]) -> (String, String)? {
+		guard element.count > 1 else { return nil }
+		return (element[0], element[1])
 	}
 
 	static func argToDirectoryURL(_ path: String) -> URL {
