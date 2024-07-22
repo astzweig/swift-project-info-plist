@@ -1,4 +1,4 @@
-#  Project Info Plist
+# 🔖 Project Info Plist
 An executable to generate or update a `Info.plist` for your Swift Package
 Manager projects.
 
