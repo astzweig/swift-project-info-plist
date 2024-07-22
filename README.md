@@ -1,9 +1,10 @@
 # 🔖 Project Info Plist
-An executable to generate or update a `Info.plist` for your Swift Package
-Manager projects.
+A command-line app to generate or update a `Info.plist` for your Swift Package
+Manager projects using the package information and information from git.
 
 ## Usage
-Once installed the can be run as follows:
+Once installed the command-line app can be run as follows:
+
 ```zsh
 $> create-project-plist --project-directory <path> --output-directory <path>
 ```
@@ -15,19 +16,19 @@ The two required options are:
 2. `--output-directory`: The directory path, where the `Info.plist` shall be
   written to. If a `Info.plist` exists already there, it will be merged.
   
-Run the executable with `--help` to see all options.
+Run the command-line app with `--help` to see all options.
 
 ### Swift Run
-Alternativly, if you do not want to build and install the command on your
-system, you can use `swift run` inside your local copy of this repository:
+Alternativly, if you do not want to build and install the command-line app on
+your system, you can use `swift run` inside your local copy of this repository:
 
 ```zsh
 $> swift run -- create-project-plist --project-directory <path> --output-directory <path>
 ```
 
 ### Adding additional Key-Value pairs
-The command supports setting additional key/value pairs. Just supply them
-at the end of the command line using the format `key:value`:
+The command-line app supports setting additional key/value pairs. Just supply
+them at the end of the command line using the format `key:value`:
 
 ```zsh
 $> create-project-plist [...] SomeKey:"Some longer value" NextKey:AnotherValue
