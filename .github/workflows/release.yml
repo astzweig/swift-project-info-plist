@@ -27,14 +27,11 @@ jobs:
           body: ${{ steps.query-release-info.outputs.release-notes }}
           files: create-project-plist.v${{ github.ref_name }}.tar.gz
           token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: mislav/bump-homebrew-formula-action@v3
-        with:
-          formula-name: create-project-plist
-          homebrew-tap: astzweig/homebrew-formulae
-          download-url: ${{ fromJSON(steps.create-release.outputs.assets)[0].browser_download_url }}
-          commit-message: |
-            Bump {{formulaName}} {{version}}
-
-            Created by GitHub Workflow of ${{ github.repository }}.
-        env:
-          COMMITTER_TOKEN: ${{ secrets.HOMEBREW_FORMULAE_TOKEN }}
+      - name: Send repository dispatch to Homebrew tap of Astzweig
+        run: |
+          curl -XPOST \
+          -H "Authorization: Bearer ${{ secrets.HOMEBREW_FORMULAE_TOKEN }}" \
+          -H "Accept: application/vnd.github.everest-preview+json" \
+          -H "Content-Type: application/json" \
+          https://api.github.com/repos/astzweig/homebrew-formulae/actions/workflows/livecheck.yml/dispatches \
+          --data '{"event_type": "upstream_update"}'

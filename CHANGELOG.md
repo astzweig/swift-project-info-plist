@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Our GitHub workflow now just notifies the repository of our [Homebrew Formula]
+  that at least one formula is outdated instead of updating the formula itself.
+
 ## [1.1.0] - 2024-07-22
 
 ### Added
