@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2024-07-24
+
+### Fixed
+
+- Run `git` in the actual project directory. Previously all `git` calls happend
+  from the current working directory, regardless if that was the project folder
+  or not.
+
 ### Changed
 
 - Our GitHub workflow now just notifies the repository of our [Homebrew Formula]

@@ -25,8 +25,11 @@ public struct ProjectPlist {
 
 	private static func getInformations(for projectDirectory: URL, target: String) async -> ProjectInformation {
 		async let bundleId = PackageInfo.getProjectBundleId(for: projectDirectory, target: target)
+		let originalDirectoryPath = FileManager.default.currentDirectoryPath
+		FileManager.default.changeCurrentDirectoryPath(projectDirectory.path())
 		async let version = Git.getEnhancedVersion()
 		async let smallVersion = Git.getTotalCommitCount()
+		FileManager.default.changeCurrentDirectoryPath(originalDirectoryPath)
 
 		return await (bundleId, version, smallVersion)
 	}
